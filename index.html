@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Jogo de Damas - Leonardo Avelar</title>
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+		<script src="jquery.min.js"></script>
+
+		<!--[if lt IE 9]>
+			<script src="html5.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+
+			* {
+				-webkit-user-drag: none;
+				-webkit-user-select: none;
+			}
+
+			body {
+				margin: 0;
+			}
+
+			td {
+				width: 50px;
+				height: 50px;
+			}
+
+			td.black {
+				background-color: black;
+				box-sizing: border-box;
+			}
+
+			section#main {
+				width: 452px;
+				height: 452px;
+				margin: 0 auto;
+				margin-top: 40px;
+				border: 15px solid black;
+			}
+
+			img.bt-red {
+				width: 40px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+
+			img.bt-cinza {
+				width: 40px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+
+			img:hover {
+				cursor: pointer;
+			}
+
+			h1 {
+				margin: 0 auto;
+			    font-family: Verdana;
+			    font-size: 40px;
+			    padding: 5px 8px;
+			    width: 340px;
+			    color: white;
+			    background-color: black;
+			}
+
+			td.hover { 
+				background-color: #e20000;
+				border: 3px solid #fdbe00;
+				box-sizing: border-box;
+			}
+
+			td.hover:hover {
+				background-color: #555;
+				cursor: pointer;
+			}
+
+.preLoader {display: none;}
+
+		</style>
+
+	</head>
+	<body>
+
+
+
+      <!-- Pre-Loader das imagens - isso e uma gambiarra -->
+      <img src="imagens/botao.png" class="preLoader">
+      <img src="imagens/botao2.png" class="preLoader">
+      <img src="imagens/botao6.png" class="preLoader">
+      <img src="imagens/botao7.png" class="preLoader">
+      <img src="imagens/botao9.png" class="preLoader">
+      <img src="imagens/botao10.png" class="preLoader">
+      <img src="imagens/botao11.png" class="preLoader">
+      <img src="imagens/botao12.png" class="preLoader">
+      <!-- 00 FIM PRE-LOADER -->
+
+
+		
+		<header style="background-color: black;">
+			<h1>Jogo de Damas</h1>
+		</header>
+<center><p style="margin-top: 40px; font-size: 18px;">Este jogo &eacute; s&oacute; uma vers&atilde;o inicial, porque ainda estou desenvolvendo, eu pretendo colocar um sistema de cadastro e um chat para poder jogar online com outros jogadores.</p></center>
+	<section id="main">
+
+		<table border="1">
+			<tr>
+				<td></td>
+				<td class="black" id="H2"><img class="bt-red"  src="imagens/botao.png" id="v1"></td>
+				<td></td>
+				<td class="black" id="H4"><img class="bt-red" src="imagens/botao.png" id="v2"></td>
+				<td></td>
+				<td class="black" id="H6"><img class="bt-red" src="imagens/botao.png" id="v3"></td>
+				<td></td>
+				<td class="black" id="H8"><img class="bt-red" src="imagens/botao.png" id="v4"></td>
+			</tr>
+			<tr>
+				<td class="black" id="G1"><img class="bt-red" src="imagens/botao.png" id="v5"></td>
+				<td></td>
+				<td class="black" id="G3"><img class="bt-red" src="imagens/botao.png" id="v6"></td>
+				<td></td>
+				<td class="black" id="G5"><img class="bt-red" src="imagens/botao.png" id="v7"></td>
+				<td></td>
+				<td class="black" id="G7"><img class="bt-red" src="imagens/botao.png" id="v8"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="black" id="F2"><img class="bt-red" src="imagens/botao.png" id="v9"></td>
+				<td></td>
+				<td class="black" id="F4"><img class="bt-red" src="imagens/botao.png" id="v10"></td>
+				<td></td>
+				<td class="black" id="F6"><img class="bt-red" src="imagens/botao.png" id="v11"></td>
+				<td></td>
+				<td class="black" id="F8"><img class="bt-red" src="imagens/botao.png" id="v12"></td>
+			</tr>
+			<tr>
+				<td class="black vazia" id="E1"></td>
+				<td></td>
+				<td class="black vazia" id="E3"></td>
+				<td></td>
+				<td class="black vazia" id="E5"></td>
+				<td></td>
+				<td class="black vazia" id="E7"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="black vazia" id="D2"></td>
+				<td></td>
+				<td class="black vazia" id="D4"></td>
+				<td></td>
+				<td class="black vazia" id="D6"></td>
+				<td></td>
+				<td class="black vazia" id="D8"></td>
+			</tr>
+			<tr>
+				<td class="black" id="C1"><img class="bt-cinza" src="imagens/botao2.png" id="c12"></td>
+				<td></td>
+				<td class="black" id="C3"><img class="bt-cinza" src="imagens/botao2.png" id="c11"></td>
+				<td></td>
+				<td class="black" id="C5"><img class="bt-cinza" src="imagens/botao2.png" id="c10"></td>
+				<td></td>
+				<td class="black" id="C7"><img class="bt-cinza" src="imagens/botao2.png" id="c9"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="black" id="B2"><img class="bt-cinza" src="imagens/botao2.png" id="c8"></td>
+				<td></td>
+				<td class="black" id="B4"><img class="bt-cinza" src="imagens/botao2.png" id="c7"></td>
+				<td></td>
+				<td class="black" id="B6"><img class="bt-cinza" src="imagens/botao2.png" id="c6"></td>
+				<td></td>
+				<td class="black" id="B8"><img class="bt-cinza" src="imagens/botao2.png" id="c5"></td>
+			</tr>
+			<tr>
+				<td class="black" id="A1"><img class="bt-cinza" src="imagens/botao2.png" id="c4"></td>
+				<td></td>
+				<td class="black" id="A3"><img class="bt-cinza" src="imagens/botao2.png" id="c3"></td>
+				<td></td>
+				<td class="black" id="A5"><img class="bt-cinza" src="imagens/botao2.png" id="c2"></td>
+				<td></td>
+				<td class="black" id="A7"><img class="bt-cinza" src="imagens/botao2.png" id="c1"></td>
+				<td></td>
+			</tr>
+		</table>
+
+	</section>
+
+	<script>
+		
+		var ativo = false;
+		var selecionado = "";
+		var pecaCapturada = "";
+		var pecaCapturada2 = "";
+		var obj3;
+		var elementosPosiveis = "";
+		var elementosPosiveisSemCaptura = "";
+
+		$(document).ready(function(){
+
+			// Adiciona evento para saber quando o botao e clicado
+			$(document).on('mousedown', '.bt-red', function() {
+
+				
+					
+					obj3 = $(this).parent('.black').attr('id'); // Guarda na variavel a id da celala onde esta a peca selecionada
+					
+
+					// INICIO - Selecao da celula F2 ***********************
+					if (obj3 == "F2") {
+
+
+						// Inicializando a variavel
+						elementosPosiveis = "";
+
+
+						if ( $('#E1').children().length == 0 ) { elementosPosiveis = "#E1"; };
+						if ( $('#E3').children().length == 0 ) { elementosPosiveis += ", #E3"; }
+
+						
+						// Primeira peca pra capturar
+						if ( $('#D4').children().length == 0 && $('#E3 img').attr('class') == "bt-cinza" ) {
+							elementosPosiveis += ", #D4";
+
+							pecaCapturada = "#E3";
+
+							// Segunda opcoes de pecas pra capturar ***************
+							// 1º Opcao
+							if ( $('#B2').children().length == 0 && $('#C3 img').attr('class') == "bt-cinza" ) {
+								elementosPosiveis += ", #B2";
+								pecaCapturada2 = "#C3";
+							}
+							// 2º Opcao
+							if ( $('#B6').children().length == 0 && $('#C5 img').attr('class') == "bt-cinza" ) {
+								elementosPosiveis += ", #B6";
+								pecaCapturada2 = "#C5";
+							}
+
+						}
+
+						// Verificacao caso seja dama
+						if ( $('#F2 img').attr('src') == "imagens/botao11.png" || $('#F2 img').attr('src') == "imagens/botao12.png" ) {
+							if ( $('#G1').children().length == 0 ) { elementosPosiveis += ", #G1"; };
+							if ( $('#G3').children().length == 0 ) { elementosPosiveis += ", #G3"; };
+							
+							// Capturar a peca que esta na celula G3 caso ela seja bege
+							if ( $('#H4').children().length == 0 && $('#G3 img').attr('class') == "bt-cinza" ) {
+								elementosPosiveis += ", #H4";
+								pecaCapturada = "#G3";
+							}
+						}
+
+						// Formata string para funcionar para selecionar elemento jquery		
+						if ( elementosPosiveis.charAt(0) != "#" ) {
+							elementosPosiveis = elementosPosiveis.replace(", ", "");
+						}
+
+					}else {
+
+/*
+
+						// Variaveis de inicializacao
+						pecaCapturada = '';
+
+
+						// Letras das linhas A-B-C-D-E-F-G-H	
+						campos = "ABCDEFGH";
+
+						
+						linha = obj3.charAt(0); // Pega a letra da linha da peca selecionada
+						coluna = obj3.charAt(1); // Pega o numero da coluna da peca selecionada
+
+
+						// INICIO - 1º Diagonal sentido campo adversario *************
+						linhaNum = campos.search(linha); // Pega o numero do caracter - utilizado para saber o numero da linha do objeto
+						linhaDiagonal1 = campos.charAt(linhaNum - 1);
+						colunaDiagonal1 = coluna - 1;
+						diagonal1 = "#"+linhaDiagonal1 + colunaDiagonal1;
+						console.log("Casa = "+diagonal1);
+
+						// Terceira casa da diagonal
+						// Variaveis
+						linhaCasa3 = linhaNum - 2;
+						colunaCasa3 = (colunaDiagonal1 - 1).toString();
+
+						terceiraCasaDiagonal1 = "#"+campos.charAt(linhaCasa3) + (colunaDiagonal1 - 1).toString(); 
+						console.log("Terceira casa = "+terceiraCasaDiagonal1);
+						if ( $(diagonal1).children().length == 0 ) {
+							elementosPosiveis = diagonal1;
+						}
+						else if ( linhaCasa3 > 0 && linhaCasa3 < 8 && colunaCasa3 > 0 && colunaCasa3 < 8 && $(terceiraCasaDiagonal1).children().length == 0 && $(diagonal1+' img').attr('class') == "bt-cinza" ) {
+							pecaCapturada = diagonal1;
+							elementosPosiveis = terceiraCasaDiagonal1;
+						}
+						else {
+							elementosPosiveis = "";
+						}
+						// FIM - 1º Diagonal sentido campo adversario ****************
+
+						// INICIO - 2º Diagonal sentido campo adversario *************
+						colunaDiagonal2 = parseInt(coluna) + 1;
+						diagonal2 = "#"+linhaDiagonal1 + colunaDiagonal2;
+						
+						if ( $(diagonal2).children().length == 0 && pecaCapturada == '' ) {
+							elementosPosiveis += ", "+diagonal2;
+						}
+
+						// Terceira casa da diagonal
+						// Variaveis
+						linhaCasa3_diagonal2 = linhaNum + 2;
+						colunaCasa3_diagonal2 = (colunaDiagonal2 + 1).toString();
+
+						terceiraCasaDiagonal2 = "#"+campos.charAt(linhaCasa3_diagonal2) + (colunaDiagonal2 - 1).toString(); 
+						
+						if ( $(diagonal2).children().length == 0 ) {
+							elementosPosiveis = diagonal2;
+						}
+						else if ( linhaCasa3_diagonal2 > 0 && linhaCasa3_diagonal2 < 8 && colunaCasa3_diagonal2 > 0 && colunaCasa3_diagonal2 < 8 && $(terceiraCasaDiagonal2).children().length == 0 && $(diagonal2+' img').attr('class') == "bt-cinza" ) {
+							pecaCapturada = diagonal2;
+							elementosPosiveis = terceiraCasaDiagonal2;
+						}
+						else {
+							elementosPosiveis = "";
+						}
+
+						// FIM - 2º Diagonal sentido campo adversario ****************
+
+
+						// Formatacao da string
+						if ( elementosPosiveis.charAt(0) != "#" ) {
+							elementosPosiveis = elementosPosiveis.replace(", ", "");
+						}
+*/
+
+						// Chama a funcao selecionaPossiveis()
+						selecionaPossiveis(obj3, "imagens/botao11.png", "imagens/botao12.png", "bt-cinza", 1, 2, 3, 4);
+
+					}
+					// FIM - Selecao da celula F2 **************************
+
+
+
+				// Estilizacao do botao
+				if(selecionado == "" || selecionado == this.id) {
+
+					// Se o botao nao tiver selecionado
+					if(ativo == false) {
+
+						// Coloca botao com selo amarelo - BOTAO SELECIONADO
+			            
+						// Condicao para saber se e dama
+						if ( $(this).attr('src') == "imagens/botao11.png" ) {
+							this.src = 'imagens/botao12.png';
+						}
+						else {
+							this.src = 'imagens/botao6.png';
+						}
+						
+			            
+			            selecionado = this.id;
+			            //$(this).css("border", "0.5px solid red");
+			            $(elementosPosiveis).addClass("hover");
+			            ativo = true;
+			            elemento = this.id;
+
+
+		            }else {
+
+		            	// Coloca o botao padrao - BOTAO NAO SELECIONADO
+		            	
+		            	// Condicao para saber se e dama
+						if ( $(this).attr('src') == "imagens/botao12.png" ) {
+							this.src = 'imagens/botao11.png';
+						}
+						else {
+							this.src = 'imagens/botao.png';
+						}
+		            	$(elementosPosiveis).removeClass("hover");
+			            //$(this).css("border", "none");
+			            ativo = false;
+
+
+		            }
+
+	            }
+	            // Se um botao ja tiver selecionado e clicar em outro botao - DESELECIONA O BOTAO QUE ESTA SELECIONADO E SELECIONA OUTRO
+	            else {
+
+	            	if ( selecionado.charAt(0) == "v" ) {
+	            		// Condicional para saber se coloca o botao da dama
+	            		console.log("Igual a "+$("#"+selecionado).attr('src'))
+	            		if ( $("#"+selecionado).attr('src') == "imagens/botao12.png" || $("#"+selecionado).attr('src') == "imagens/botao11.png" ) {
+	            			srcBotao = "botao11";
+	            		}
+	            		else /* if ( $("#"+selecionado).attr('src') == "imagens/botao6.png" || $("#"+selecionado).attr('src') == "imagens/botao.png" )*/ {
+	            			srcBotao = "botao";
+	            		}
+	            	}
+	            	else {
+	            		if ( $("#"+selecionado).attr('src') == "imagens/botao10.png" || $("#"+selecionado).attr('src') == "imagens/botao9.png" ) {
+	            			srcBotao = "botao9";
+	            		}
+	            		else /* if ( $("#"+selecionado).attr('src') == "imagens/botao6.png" || $("#"+selecionado).attr('src') == "imagens/botao.png" )*/ {
+	            			srcBotao = "botao2";
+	            		}
+	            	}
+
+					$('.vazia').removeClass("hover");
+	            	document.getElementById(selecionado).src = 'imagens/'+srcBotao+'.png';
+	            	
+	            	// Condicao para saber se e dama
+					if ( $(this).attr('src') == "imagens/botao11.png" ) {
+						this.src = 'imagens/botao12.png';
+					}
+					else {
+						this.src = 'imagens/botao6.png';
+					}
+	            	//this.src = 'imagens/botao6.png';
+			        
+			        selecionado = this.id;
+			        $(elementosPosiveis).addClass("hover");
+			        ativo = true;
+
+	            }
+
+
+	        });
+			// FIM - mousedown no .bt-red
+
+
+	        $(document).on('mousedown', '.hover',function() {
+	        	
+	        	if ( selecionado != "" && ativo == true ) {
+	        		//alert("Yes! = "+this.class)
+	        		
+	        		primeiraLetra = selecionado.charAt(0);
+	        		//console.log(primeiraLetra);
+
+
+	        		// Verifica se a cor da peca selecionada
+	        		if ( $("#"+selecionado).attr('src') == "imagens/botao12.png" ) { // Hover do botao da dama
+	        			srcBotao = "botao11"; //console.log("ok")
+	        			classBotao = "bt-red";
+	        		}
+	        		else if ( primeiraLetra == "v" ) { // Hover do botao das pecas vermelha
+	        			srcBotao = "botao";
+	        			classBotao = "bt-red";//console.log("ok2" + this.src)
+	        		}
+	        		// Verifica dama -BEGE
+	        		else if ( $("#"+selecionado).attr('src') == "imagens/botao10.png" ) { // Hover do botao da dama
+	        			srcBotao = "botao9"; //console.log("ok")
+	        			classBotao = "bt-cinza";
+	        		}
+	        		else { // Hover do botao das pecas bege
+	        			srcBotao = "botao2";
+	        			classBotao = "bt-cinza";
+	        		}
+
+	        		// INICIO - Cria dama ***** 
+	        		// Vermelha
+	        		if ( $("#"+selecionado).attr('src') == "imagens/botao6.png" ) {
+		        		if ( this.id == "A1" || this.id == "A3" || this.id == "A5" || this.id == "A7" ) {
+		        			srcBotao = "botao11";
+		        		}
+	        		}
+	        		// Bege
+	        		else if ( $("#"+selecionado).attr('src') == "imagens/botao7.png" ) {
+	        			if ( this.id == "H2" || this.id == "H4" || this.id == "H6" || this.id == "H8" ) {
+	        				srcBotao = "botao9";
+	        			}
+	        		}
+	        		// FIM - Cria dama *****
+
+
+	        		// Casa onde esta a peca selecionada *********
+					$("#"+selecionado).removeAttr("src");
+					//$("#"+selecionado).css("visibility", "hidden"); // Esconde peca para nao ficar mostrando nada
+					$("#"+selecionado).removeClass(classBotao);
+					//console.log("class bt-red removida do elemento "+"#"+selecionado)
+					//$("#"+selecionado).addClass("hover");
+					//$("#"+selecionado).addClass("vazia");
+					$("#"+selecionado).closest('td.black').addClass("vazia"); // Pega o elemento pai
+					paiDoSelecionadoId = $("#"+selecionado).closest('td.black').attr('id'); // Pega o id do pai do selecionado para usar na remocao da peca capturada
+					//$("#"+selecionado).removeAttr("id");
+					$("#"+selecionado).remove();
+
+
+					// Casa pra onde vai a peca ******************
+					$(this).append("<img class='"+classBotao+"' src='imagens/"+srcBotao+".png' id='"+selecionado+"'>")
+					$(this).removeClass("hover");
+					$(this).removeClass("vazia");
+	        		$(".vazia").removeClass("hover");
+
+	        		
+
+					if ( paiDoSelecionadoId == obj3 ) {
+	        		
+	        		// INICIO - Remocao de pecas capturadas *******************************************
+
+	        		// Condicao para saber qual vai ser a peca a ser capturada caso tenha mais de uma peca
+
+	        		var nome = "#"+this.id;
+					//var pecaCapturada = "#D2#E3#D6#E5";
+					var n = pecaCapturada.indexOf(nome);
+					contem = pecaCapturada.includes(nome);
+					var x;
+
+					if ( contem == true ) {
+						x = pecaCapturada.replace(nome, "");
+						pecaCapturada = x.charAt(n)+x.charAt(n+1)+x.charAt(n+2);
+					}
+					else {
+						pecaCapturada = pecaCapturada.replace(nome, "");
+					}
+
+
+	        		// ********
+
+
+	        		
+		        		if ( pecaCapturada != ""  && paiDoSelecionadoId == "F2" ) {
+			        		if ( this.id == "D4" || this.id == "B6" || this.id == "B2" || this.id == "H4" /*&& this.id == "D4" || this.id == "B6" || this.id == "B2"*/ ) {
+			        			if ( this.id == "D4" ) {
+			        				pecaCapturada = "#E3";
+			        			}
+			        			else {
+			        				pecaCapturada = "#G3";
+			        			}
+			        			$(pecaCapturada+" img").remove();
+			        			$(pecaCapturada).addClass("vazia");console.log("Ok 1")
+			        			// alert("Teste"+" selecionado = "+paiDoSelecionadoId+"/n"+"Esse id = "+this.id)
+			        			pecaCapturada = "";
+			        		}
+			        	}
+		        		if ( pecaCapturada2 != "" /*&& this.id == "B6" || this.id == "B2"*/ ) {
+			        		if ( this.id == "B6" || this.id == "B2" ) {	
+			        			console.log("Ok 2")
+			        			if ( this.id == "B2" ) {
+			        				pecaCapturada2 = "#C3";
+			        			}
+			        			else {
+			        				pecaCapturada2 = "#C5";
+			        			}
+		console.log("Peca = "+pecaCapturada2)
+			        			$(pecaCapturada2+" img").remove();
+			        			$(pecaCapturada2).addClass("vazia");
+
+			        			pecaCapturada2 = "";
+			        		}
+		        		}
+		        		if ( pecaCapturada != "" && paiDoSelecionadoId != "F2" ) {
+			        		// Teste da nova logica *******************************
+			        		$(pecaCapturada+" img").remove();
+				        	$(pecaCapturada).addClass("vazia");
+
+				        	pecaCapturada = "";
+			        	}
+		        	}
+	        		// FIM - Remocao de pecas capturadas **********************************************
+	        		
+	        		// Atribui valor para as variaveis
+	        		selecionado = ""; // Nenhuma celula selecionada
+	        		ativo = false; // Nenhuma selula ativa
+	        	};
+
+	        });
+			// FIM - mousedown no .hover
+
+
+// ************************************************************************************************************************************************************************
+
+
+			$(document).on('mousedown', '.bt-cinza', function() { 
+
+
+				// Pega o id da celula onde esta a peca selecionada (((((((((((((((((*************))))))))))))))))) 
+		        obj3 = $(this).parent('.black').attr('id');
+		        $(".vazia").removeClass("hover");
+		        // Chama funcao selecionaPossiveis()
+		        selecionaPossiveis(obj3, "imagens/botao9.png", "imagens/botao10.png", "bt-red", 3, 4, 1, 2);
+
+
+				
+				// Estilizacao do botao
+				if(selecionado == "" || selecionado == this.id) {
+					
+					// Se o botao nao tiver selecionado
+					if(ativo == false) {
+
+						// Coloca botao com selo amarelo - BOTAO SELECIONADO
+			            // this.src = 'imagens/botao7.png';
+
+			            // Condicao para saber se e dama - BEGE
+						if ( $(this).attr('src') == "imagens/botao9.png" ) {
+							this.src = 'imagens/botao10.png';
+						}
+						else {
+							this.src = 'imagens/botao7.png';
+						}
+
+			            selecionado = this.id;
+			            //$(this).css("border", "0.5px solid red");
+			            $(elementosPosiveis).addClass("hover"); // Adiciona a classe hover nas casas selecionadas
+			            ativo = true;
+			            elemento = this.id;
+
+		            }else {
+
+		            	// Coloca o botao padrao - BOTAO NAO SELECIONADO
+
+		            	// Condicao para saber se e dama
+						if ( $(this).attr('src') == "imagens/botao10.png" ) {
+							this.src = 'imagens/botao9.png';
+						}
+						else {
+							this.src = 'imagens/botao2.png';
+						}
+
+		            	// this.src = 'imagens/botao2.png';
+		            	$(".vazia").removeClass("hover");
+			            //$(this).css("border", "none");
+			            ativo = false;
+
+		            }
+
+	            }
+	            // Se um botao ja tiver selecionado e clicar em outro botao - DESELECIONA O BOTAO QUE ESTA SELECIONADO E SELECIONA OUTRO
+	            else {
+
+	            	if ( selecionado.charAt(0) == "v" ) {
+	            		if ( $("#"+selecionado).attr('src') == "imagens/botao12.png" || $("#"+selecionado).attr('src') == "imagens/botao11.png" ) {
+	            			srcBotao = "botao11";
+	            		}
+	            		else /* if ( $("#"+selecionado).attr('src') == "imagens/botao6.png" || $("#"+selecionado).attr('src') == "imagens/botao.png" )*/ {
+	            			srcBotao = "botao";
+	            		}
+	            	}
+	            	else {
+	            		if ( $("#"+selecionado).attr('src') == "imagens/botao10.png" || $("#"+selecionado).attr('src') == "imagens/botao11.png" ) {
+	            			srcBotao = "botao9";
+	            		}
+	            		else /* if ( $("#"+selecionado).attr('src') == "imagens/botao6.png" || $("#"+selecionado).attr('src') == "imagens/botao.png" )*/ {
+	            			srcBotao = "botao2";
+	            		}
+	            	}
+
+	            	document.getElementById(selecionado).src = 'imagens/'+srcBotao+'.png';
+	            	
+	            	// Condicao para saber se e dama
+					if ( $(this).attr('src') == "imagens/botao9.png" ) {
+						this.src = 'imagens/botao10.png';
+					}
+					else {
+						this.src = 'imagens/botao7.png';
+					}
+
+	            	//this.src = 'imagens/botao7.png';
+			        selecionado = this.id;
+			        $(elementosPosiveis).addClass("hover"); // Adiciona a classe hover nas casas selecionadas
+			        ativo = true;
+
+
+	            }
+
+
+
+			});
+			// FIM - mousedown no .bt-cinza
+
+
+			// ********************************************** BIBLIOTECA DE FUNCOES **********************************************************************
+			
+
+			// Funcao para verificar as diagonais
+			function verificaDiagonais(obj3, botaoNormal, botaoHover, botaoClass, case1, case2, case3, case4) {
+				// Verifica as diagonais
+				for ( cont = 1; cont <= total_de_diagonais; cont++ ) {
+									
+					// Condicao para saber qual a diagonal
+					switch (cont) {
+						// 1º diagonal
+						case case1: 
+							linhaSelecinada = linhaNum - 1; // Define a linha 
+							colunaSelecionada = coluna - 1; // Define a coluna
+							linhaSelecionadaCasa3 = linhaNum - 2;
+							colunaSelecionadaCasa3 = colunaSelecionada - 1;
+						break;
+
+							// 2º diagonal
+							case case2:
+								linhaSelecinada = linhaNum - 1;
+								colunaSelecionada = parseInt(coluna) + 1;
+								linhaSelecionadaCasa3 = linhaNum - 2;
+								colunaSelecionadaCasa3 = colunaSelecionada + 1;
+							break;
+
+								// 3º diagonal
+								case case3:
+									linhaSelecinada = linhaNum + 1;
+									colunaSelecionada = coluna - 1;
+									linhaSelecionadaCasa3 = linhaNum + 2;
+									colunaSelecionadaCasa3 = colunaSelecionada - 1;
+								break;
+
+									// 4º diagonal
+									case case4:
+										linhaSelecinada = linhaNum + 1;
+										colunaSelecionada = parseInt(coluna) + 1;
+										linhaSelecionadaCasa3 = linhaNum + 2;
+										colunaSelecionadaCasa3 = colunaSelecionada + 1;
+									break;
+					}// FIM DO SWITCH
+
+					
+					linhaDiagonal = campos.charAt(linhaSelecinada); // Converte o numero da linha para letra - Ex. 1 = A 
+					colunaDiagonal = colunaSelecionada; // Define a coluna da diagona tendo como referencia a coluna do objeto
+					
+					diagonal = "#"+linhaDiagonal + colunaDiagonal; // Define a id da casa que vai ser selecionada
+
+
+
+					// Verifica se esta vazia
+					if ( $(diagonal).children().length == 0 ) {	
+						//elementosPosiveis += ", "+diagonal;
+						elementosPosiveisSemCaptura += ", "+diagonal;
+					}
+					else {
+						
+						// Terceira casa da diagonal ***************************************************************
+						// Variaveis
+						linhaCasa3 = linhaSelecionadaCasa3;
+						colunaCasa3 = (colunaSelecionadaCasa3).toString();
+
+						terceiraCasaDiagonal = "#"+campos.charAt(linhaCasa3) + colunaCasa3; 
+						
+
+						// Verifica se tem uma peca adversaria para capturar
+						if ( linhaCasa3 >= 0 && linhaCasa3 <= 8 && colunaCasa3 > 0 && colunaCasa3 <= 8 && $(terceiraCasaDiagonal).children().length == 0 && $(diagonal+' img').attr('class') == botaoClass ) {
+							
+							pecaCapturada += terceiraCasaDiagonal+diagonal;
+							//alert(pecaCapturada);
+							elementosPosiveis += ", "+terceiraCasaDiagonal;
+							//alert(elementosPosiveis);
+							//alert(terceiraCasaDiagonal);
+
+							// Verifica se tem uma segunda peca adversaria para capturar
+						}
+
+					}// fim - else
+
+					
+				}
+				// FIM DO FOR
+					
+				// Verifica variavel pecaCapturada
+				if ( pecaCapturada == "" ) {
+					elementosPosiveis = elementosPosiveisSemCaptura;
+				}
+
+			}
+			// FIM - FUNCAO verificaDiagonais
+
+
+
+			// Funcao para selecionar casas que possa ir *************************************************************************************************
+			function selecionaPossiveis(obj3, botaoNormal, botaoHover, botaoClass, case1, case2, case3, case4) {
+
+				obj3 = "#"+obj3;
+				
+				// Variaveis de inicializacao
+				pecaCapturada = ''; // Reseta a variavel pecaCapturada
+				elementosPosiveis = "";
+				elementosPosiveisSemCaptura = "";
+				colunaDiagonal = 0;
+
+				// Letras das linhas A-B-C-D-E-F-G-H	
+				campos = "ABCDEFGH";
+
+				
+				linha = obj3.charAt(1); // Pega a letra da linha da peca selecionada
+				coluna = obj3.charAt(2); // Pega o numero da coluna da peca selecionada
+				linhaNum = campos.search(linha); // Converte linha para um numero inteiro
+				
+
+				// Verifica se a peca selecionada e uma dama
+				if ( $(obj3+' img').attr('src') == botaoNormal || $(obj3+' img').attr('src') == botaoHover ) {
+					total_de_diagonais = 4;
+				}
+				else {
+					total_de_diagonais = 2;
+				}
+
+					// Chama a funcao que verifica as diagonais
+					verificaDiagonais(obj3, botaoNormal, botaoHover, botaoClass, case1, case2, case3, case4);
+
+
+				// Formatacao da string
+				if ( elementosPosiveis.charAt(0) != "#" ) {
+					elementosPosiveis = elementosPosiveis.replace(", ", "");
+				}
+
+
+			}
+			// FIM - selecionarPossivesis()
+
+
+		});
+		// FIM - ready
+
+	</script>
+
+	</body>
+</html>	
